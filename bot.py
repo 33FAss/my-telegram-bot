@@ -5,7 +5,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 GROUP_CHAT_ID = -1004334745848
-PROGRAM_LINK = "https://drive.google.com/file/d/1Zn2ffaI5Z3tS-wjJzJd7JTnBmNNh7yIs/view?usp=sharing"
+PROGRAM_LINK = "https://disk.yandex.ru/i/YBnpsWvXX5NLRw"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROGRAM_PDF_PATH = os.path.join(BASE_DIR, "program.pdf")
@@ -39,7 +39,7 @@ async def handle_contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=GROUP_CHAT_ID, text=text)
 
     await update.message.reply_text(
-        f"Спасибо! Программу можно посмотреть тут:\n{PROGRAM_LINK}\n\nСвяжемся с вами в ближайшее время!",
+        f"Спасибо! Программу можно посмотреть в приложенном документе или по ссылке:\n{PROGRAM_LINK}\n\nСвяжемся с вами в ближайшее время!",
         reply_markup=ReplyKeyboardRemove()
     )
 
