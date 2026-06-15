@@ -1,6 +1,6 @@
 import os
 import logging
-from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove, InputFile
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -44,12 +44,10 @@ async def handle_contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     if os.path.exists(PROGRAM_PDF_PATH):
-        with open(PROGRAM_PDF_PATH, "rb") as pdf:
-            await update.message.reply_document(
-                document=pdf,
-                filename="Выход на свой путь.pdf",
-                caption="📄 Выход на свой путь"
-            )
+        await update.message.reply_document(
+            document=InputFile(PROGRAM_PDF_PATH, filename="Выход на свой путь.pdf"),
+            caption="📄 Выход на свой путь"
+        )
     else:
         logging.error(f"PDF-файл не найден: {PROGRAM_PDF_PATH}")
         await update.message.reply_text(
