@@ -3,7 +3,7 @@ import logging
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-BOT_TOKEN = "8719960140:AAHeMzC6ZeMY2GyiJW72847zS6AKHAQURVQ"
+BOT_TOKEN = os.getenv("8719960140:AAHeMzC6ZeMY2GyiJW72847zS6AKHAQURVQ")
 GROUP_CHAT_ID = -1004334745848
 PROGRAM_LINK = "https://drive.google.com/file/d/1Zn2ffaI5Z3tS-wjJzJd7JTnBmNNh7yIs/view?usp=sharing"
 
