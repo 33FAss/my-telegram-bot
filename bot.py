@@ -45,11 +45,11 @@ async def handle_contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if os.path.exists(PROGRAM_PDF_PATH):
         with open(PROGRAM_PDF_PATH, "rb") as pdf:
-            await update.message.reply_document(
-                document=pdf,
-                filename="program.pdf",
-                caption="📄 Программа в PDF"
-            )
+    await update.message.reply_document(
+        document=pdf,
+        filename="Выход на свой путь.pdf",
+        caption="📄 Выход на свой путь"
+    )
     else:
         logging.error(f"PDF-файл не найден: {PROGRAM_PDF_PATH}")
         await update.message.reply_text(
