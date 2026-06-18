@@ -33,8 +33,7 @@ async def handle_contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await context.bot.send_message(chat_id=GROUP_CHAT_ID, text=text)
     await update.message.reply_text(
-        "Отлично, контакт получен! 🎉\n"
-        "Программу ретрита можно посмотреть прямо сейчас:\n\n"
+        "Спасибо! Программу ретрита можно посмотреть на выбор тут или по ссылкам:\n\n"
         "📁 На Яндекс Диске: https://disk.yandex.ru/i/nBn1F-yWPf1bsQ\n"
         "📁 На Google Диске: https://clck.ru/3UExgM\n\n"
         "Мы свяжемся с тобой в ближайшее время — проведём диагностику и честно скажем, подходит ли тебе этот формат.\n\n"
