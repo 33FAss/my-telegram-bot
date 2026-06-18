@@ -5,29 +5,25 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 GROUP_CHAT_ID = -1004334745848
-PROGRAM_LINK = "https://disk.yandex.ru/i/YBnpsWvXX5NLRw"
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROGRAM_PDF_PATH = os.path.join(BASE_DIR, "program.pdf")
 
 logging.basicConfig(level=logging.INFO)
 
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     button = KeyboardButton("📋 ПОЛУЧИТЬ ПРОГРАММУ", request_contact=True)
     keyboard = ReplyKeyboardMarkup([[button]], resize_keyboard=True, one_time_keyboard=True)
-
     await update.message.reply_text(
-        "Приветствую! Пока я — бот, но я помогу тебе быстро связаться с нашей живой и дружной командой и получить необходимую информацию.\n\n"
-        "Просто нажми «ПОЛУЧИТЬ ПРОГРАММУ», и мы переключим тебя на специалиста, который поможет записать тебя.",
+        "Привет! Раз ты здесь — что-то внутри уже откликнулось. Это не случайно ✨\n\n"
+        "Я бот Александра Синеркина. Живых людей заменить не могу, но помогу попасть к нам быстро и без лишних шагов 🤗\n\n"
+        "«Sinerkin Camp» — трансформационная программа с глубокой личной работой. Поэтому мы берём не всех (это правда): каждый участник проходит короткую диагностику, чтобы убедиться — программа действительно для тебя 💛\n\n"
+        "Нажми «ПОЛУЧИТЬ ПРОГРАММУ» — и мы передадим твой контакт специалисту по диагностике. Он свяжется и расскажет, что тебя ждёт 🙌",
         reply_markup=keyboard
     )
-
 
 async def handle_contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
     contact = update.message.contact
     user = update.message.from_user
-
     text = (
         f"📩 Новая заявка!\n"
         f"👤 Имя: {contact.first_name} {contact.last_name or ''}\n"
@@ -35,38 +31,34 @@ async def handle_contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🔗 Telegram: @{user.username or 'нет username'}\n"
         f"🆔 ID: {user.id}"
     )
-
     await context.bot.send_message(chat_id=GROUP_CHAT_ID, text=text)
-
     await update.message.reply_text(
-        f"Спасибо! Программу можно посмотреть в приложенном документе или по ссылке:\n{PROGRAM_LINK}\n\nСвяжемся с вами в ближайшее время!",
+        "Отлично, контакт получен! 🎉\n"
+        "Программу ретрита можно посмотреть прямо сейчас:\n\n"
+        "📁 На Яндекс Диске: https://disk.yandex.ru/i/nBn1F-yWPf1bsQ\n"
+        "📁 На Google Диске: https://clck.ru/3UExgM\n\n"
+        "Мы свяжемся с тобой в ближайшее время — проведём диагностику и честно скажем, подходит ли тебе этот формат.\n\n"
+        "«Sinerkin Camp» — это 5 дней настоящей работы с собой. Не курс, не лекции. Живая трансформация.\n\n"
+        "Если важно срочно написать — вот контакт продюсера: @bikkenina\n"
+        "До встречи — возможно, уже в лагере! 😃",
         reply_markup=ReplyKeyboardRemove()
     )
-
     if os.path.exists(PROGRAM_PDF_PATH):
         await update.message.reply_document(
-            document=InputFile(PROGRAM_PDF_PATH, filename="Выход на свой путь.pdf"),
-            caption="📄 Выход на свой путь"
+            document=InputFile(PROGRAM_PDF_PATH, filename="Sinerkin Camp — программа.pdf"),
+            caption="📄 Sinerkin Camp — программа"
         )
     else:
         logging.error(f"PDF-файл не найден: {PROGRAM_PDF_PATH}")
-        await update.message.reply_text(
-            "PDF-файл временно недоступен, но программу можно посмотреть по ссылке выше."
-        )
-
 
 def main():
     if not BOT_TOKEN:
         raise ValueError("BOT_TOKEN не найден. Проверь переменные окружения в Railway.")
-
     app = Application.builder().token(BOT_TOKEN).build()
-
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.CONTACT, handle_contact))
-
     print("Бот запущен...")
     app.run_polling()
-
 
 if __name__ == "__main__":
     main()
