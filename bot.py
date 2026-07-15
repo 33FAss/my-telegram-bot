@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent
 PROGRAM_PDF_PATH = BASE_DIR / "SinerkinCamp.pdf"
 
 YANDEX_DISK_URL = "https://disk.yandex.ru/i/CuJld5ssmjZZSQ"
-GOOGLE_DISK_URL = "https://clck.ru/3UHto7"
+GOOGLE_DISK_URL = "https://clck.ru/3UoEsA"
 
 logging.basicConfig(
     level=logging.INFO,
